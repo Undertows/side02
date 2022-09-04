@@ -18,6 +18,10 @@ const diarySchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  mood: {
+    type: String,
+    default: '',
+  },
 })
 
 module.exports = mongoose.model('Diary', diarySchema)

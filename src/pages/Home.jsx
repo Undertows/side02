@@ -1,16 +1,27 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 export default function Home() {
   const [diary, setDiary] = useState('')
+  const [_, setID] = useSearchParams()
+  const navi = useNavigate()
 
   const saveDiary = async () => {
-    const {
-      data: { diaryObj, msg },
-    } = await axios.post('/test/saveDiary', { content: diary })
-    console.log(diaryObj.date)
-    alert(msg)
-    // console.log(data)
+    try {
+      const {
+        data: { diaryObj, msg },
+      } = await axios.post('/test/saveDiary', { content: diary })
+      // console.log(diaryObj.date)
+      // alert(msg)
+      selectMood(diaryObj._id)
+    } catch (e) {
+      console.log(e.message)
+    }
+  }
+  const selectMood = id => {
+    setID(id)
+    navi(`/mood?id=${id}`)
   }
   return (
     // 别忘了加h-screen w-screen...这里太坑了
