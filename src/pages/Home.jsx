@@ -1,28 +1,24 @@
-import axios from 'axios'
 import React, { useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 export default function Home() {
   const [diary, setDiary] = useState('')
-  const [_, setID] = useSearchParams()
   const navi = useNavigate()
 
   const saveDiary = async () => {
     try {
       const {
-        data: { diaryObj, msg },
+        data: { diaryObj },
       } = await axios.post('/test/saveDiary', { content: diary })
-      // console.log(diaryObj.date)
-      // alert(msg)
       selectMood(diaryObj._id)
     } catch (e) {
       console.log(e.message)
     }
   }
-  const selectMood = id => {
-    setID(id)
-    navi(`/mood?id=${id}`)
-  }
+
+  const selectMood = id => navi(`/mood?id=${id}`)
+
   return (
     // 别忘了加h-screen w-screen...这里太坑了
     <div className='h-screen w-screen flex flex-col justify-center items-center'>
@@ -38,9 +34,11 @@ export default function Home() {
         bg-opacity-40 bg-gray-400 rounded-md w-[10vw] h-[7vh]
         text-xl'
           onClick={saveDiary}>
-          保&nbsp;&nbsp;存
+          烂&nbsp;笔&nbsp;头
         </button>
-        {/* <button className=''>清空</button> */}
+        <button className='text-xl' onClick={() => navi('/memories')}>
+          好&nbsp;记&nbsp;性
+        </button>
       </div>
     </div>
   )
