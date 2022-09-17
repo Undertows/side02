@@ -19,10 +19,10 @@ module.exports.setMood = (req, res) => {
     .then(() => res.json({ msg: '日记保存成功。' }))
 }
 
-module.exports.showDiaries = (_, res) => {
+/* res.json不写{}直接返回memos的原型,在这里是一个无名数组
+写{memos}返回key为memos的对象 */
+module.exports.showDiaries = (req, res) => {
   diary.find({}, (err, diaries) => {
     if (!err) return res.json(diaries)
-    /* res.json不写{}直接返回memos的原型,在这里是一个无名数组
-    写{memos}返回key为memos的对象 */
   })
 }
