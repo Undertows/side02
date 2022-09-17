@@ -21,8 +21,20 @@ module.exports.setMood = (req, res) => {
 
 /* res.json不写{}直接返回memos的原型,在这里是一个无名数组
 写{memos}返回key为memos的对象 */
+//少写params.byWhat浪费一个多小时。。。
 module.exports.showDiaries = (req, res) => {
-  diary.find({}, (err, diaries) => {
+  let byWhat = req.params.byWhat
+  let subC = req.query.subCondi
+  let condition = undefined
+
+  if (byWhat == 'all') {
+    condition = {}
+  } else if (byWhat == 'mood') {
+    condition = { mood: subC }
+  } else if (byWhat == 'date') {
+    condition = { date: { $ne: `2022-0${subC}-17 14:16:31.000` } }
+  }
+  diary.find(condition, (err, diaries) => {
     if (!err) return res.json(diaries)
   })
 }

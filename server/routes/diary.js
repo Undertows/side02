@@ -8,6 +8,7 @@ const router = require('express').Router()
 
 router.post('/saveDiary', saveDiary)
 router.post('/setMood', setMood)
-router.get('/showDiaries', showDiaries)
+router.get('/showDiaries/:byWhat', showDiaries)
+// router.get('/showDiaries', showDiaries)
 
 module.exports = router
