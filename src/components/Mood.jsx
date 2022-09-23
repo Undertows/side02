@@ -1,18 +1,9 @@
 import React from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import moods from '../util/constant'
 
 export default function mood() {
-  let moods = [
-    'anxiety',
-    'anger',
-    'sad',
-    'emo',
-    'ecstasy',
-    'fear',
-    'joyful',
-    'unknown',
-  ]
   const [searchId] = useSearchParams()
   const navi = useNavigate()
 
