@@ -11,7 +11,7 @@ export default function mood() {
     'ecstasy',
     'fear',
     'joyful',
-    'unkonw',
+    'unknown',
   ]
   const [searchId] = useSearchParams()
   const navi = useNavigate()
