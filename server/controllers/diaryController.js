@@ -49,3 +49,9 @@ module.exports.showDiaries = (req, res) => {
     if (!err) return res.json(diaries)
   })
 }
+
+module.exports.delectDiary = (req, res) => {
+  diary
+    .findByIdAndDelete(req.query.id)
+    .then(() => res.json({ msg: '日记已删除。' }))
+}
