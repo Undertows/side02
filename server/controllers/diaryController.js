@@ -50,7 +50,7 @@ module.exports.showDiaries = (req, res) => {
   })
 }
 
-module.exports.delectDiary = (req, res) => {
+module.exports.deleteDiary = (req, res) => {
   diary
     .findByIdAndDelete(req.query.id)
     .then(() => res.json({ msg: '日记已删除。' }))
