@@ -15,7 +15,10 @@ module.exports.saveDiary = async (req, res, next) => {
       content: req.body.content,
       date: Date.now(),
     })
-    return res.json({ msg: '日记保存成功。', diaryObj })
+    //拿到了返回的日记对象（刚保存的那条）（无错误）
+    if (diaryObj !== undefined || null)
+      return res.json({ msg: '日记保存成功。', diaryObj })
+    else return res.json({ msg: '日记保存失败。' })
   } catch (e) {
     next(e)
   }
@@ -54,4 +57,15 @@ module.exports.deleteDiary = (req, res) => {
   diary
     .findByIdAndDelete(req.query.id)
     .then(() => res.json({ msg: '日记已删除。' }))
+}
+
+module.exports.handleHashTag = (req, res) => {
+  diary
+    .findByIdAndUpdate(
+      req.body.id,
+      { $push: { hashTags: req.body.tags } },
+      { upsert: true } //レコードあればupdate、なければinsert
+      //findByIdAndUpdate里好像是可有可无的配置项
+    )
+    .then(() => res.json({ msg: '已添加tag' }))
 }

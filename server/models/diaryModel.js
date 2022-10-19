@@ -22,6 +22,7 @@ const diarySchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  hashTags: [String],
 })
 
 module.exports = mongoose.model('Diary', diarySchema)
